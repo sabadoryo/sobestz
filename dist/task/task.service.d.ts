@@ -25,7 +25,7 @@ export declare class TaskService {
         tasklist_id: string;
         user_id: string;
     }[]>;
-    findAll(name: string): Promise<{
+    findAll(name: string, orderBy: Object): Promise<{
         id: string;
         name: string;
         status: import(".prisma/client").$Enums.Status;

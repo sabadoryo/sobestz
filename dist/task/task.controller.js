@@ -22,6 +22,7 @@ const client_1 = require("@prisma/client");
 const isTasklistExists_pipe_1 = require("../tasklist/pipes/isTasklistExists.pipe");
 const isTaskExists_pipe_1 = require("./pipes/isTaskExists.pipe");
 const isValidStatus_pipe_1 = require("./pipes/isValidStatus.pipe");
+const isValidOrderByParams_pipe_1 = require("./pipes/isValidOrderByParams.pipe");
 let TaskController = class TaskController {
     constructor(taskService) {
         this.taskService = taskService;
@@ -39,8 +40,8 @@ let TaskController = class TaskController {
             data: Object.assign({}, task)
         };
     }
-    async getAllTasks(name) {
-        let tasks = await this.taskService.findAll(name);
+    async getAllTasks(name, orderBy) {
+        let tasks = await this.taskService.findAll(name, orderBy);
         return {
             message: "task found successfully",
             data: tasks
@@ -86,8 +87,9 @@ __decorate([
     (0, common_1.Get)(''),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Query)("name")),
+    __param(1, (0, common_1.Query)("orderBy", isValidOrderByParams_pipe_1.IsValidOrderByParams)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], TaskController.prototype, "getAllTasks", null);
 __decorate([

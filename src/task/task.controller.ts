@@ -7,6 +7,8 @@ import { Status, Task, TaskList, User } from '@prisma/client';
 import { IsTasklistExistsPipe } from 'src/tasklist/pipes/isTasklistExists.pipe';
 import { IsTaskExists } from './pipes/isTaskExists.pipe';
 import { IsValidStatusPipe } from './pipes/isValidStatus.pipe';
+import { IsValidOrderByParams } from './pipes/isValidOrderByParams.pipe';
+
 
 @Controller('task')
 export class TaskController {
@@ -47,8 +49,8 @@ export class TaskController {
     @HttpCode(HttpStatus.OK)
     @Get('')
     @UseGuards(AuthGuard)
-    async getAllTasks(@Query("name") name: string) {
-        let tasks = await this.taskService.findAll(name);
+    async getAllTasks(@Query("name") name: string, @Query("orderBy", IsValidOrderByParams) orderBy: Object) {
+        let tasks = await this.taskService.findAll(name, orderBy);
 
         return {
             message: "task found successfully",

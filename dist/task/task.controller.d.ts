@@ -24,7 +24,7 @@ export declare class TaskController {
             user_id: string;
         };
     }>;
-    getAllTasks(name: string): Promise<{
+    getAllTasks(name: string, orderBy: Object): Promise<{
         message: string;
         data: {
             id: string;

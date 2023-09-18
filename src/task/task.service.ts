@@ -29,13 +29,14 @@ export class TaskService {
         })
     }
 
-    async findAll(name: string) {
+    async findAll(name: string, orderBy: Object) {
         return this.prisma.task.findMany({
             where: {
                 name: {
                     contains: name
                 }
-            }
+            },
+            orderBy
         });
     }
 

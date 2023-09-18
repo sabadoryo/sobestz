@@ -35,13 +35,14 @@ let TaskService = class TaskService {
             }
         });
     }
-    async findAll(name) {
+    async findAll(name, orderBy) {
         return this.prisma.task.findMany({
             where: {
                 name: {
                     contains: name
                 }
-            }
+            },
+            orderBy
         });
     }
     async updateStatus(id, status) {
