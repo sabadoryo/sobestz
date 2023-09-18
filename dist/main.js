@@ -11,11 +11,17 @@ async function bootstrap() {
     app.useGlobalPipes(new common_1.ValidationPipe());
     app.useGlobalInterceptors(new transformResponse_interceptor_1.TransformInterceptor());
     const config = new swagger_1.DocumentBuilder()
-        .addBearerAuth()
-        .setTitle('Cats example')
-        .setDescription('The cats API description')
+        .addBearerAuth({
+        type: 'http',
+        scheme: 'Bearer',
+        bearerFormat: 'JWT',
+        in: 'header',
+    }, 'token')
+        .addSecurityRequirements('token')
+        .setTitle('Sobes')
+        .setDescription('API description')
         .setVersion('1.0')
-        .addTag('cats')
+        .addTag('sobes')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api/docs', app, document);
